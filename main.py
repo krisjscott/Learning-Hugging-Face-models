@@ -1,5 +1,3 @@
-# hf_llm_eval.py
-# Python 3.10+ recommended
 import time
 import json
 import csv
