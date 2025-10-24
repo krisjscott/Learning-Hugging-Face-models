@@ -1,24 +1,16 @@
+# === Configuration ===
+import torch
 import time
 import json
-import csv
 from pathlib import Path
 from typing import List, Dict
-import sys
-import torch
-try:
-    from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM, pipeline
-except Exception as e:
-    print("ERROR: 'transformers' library is not installed or could not be imported:", e)
-    print("Install it with: pip install --upgrade transformers accelerate")
-    sys.exit(1)
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM
 
-# === Configuration ===
 MODEL_LIST = [
     # Change these to the models you have license/access to
-    "mistralai/Mistral-7B-Instruct-v0.3",
-    "meta-llama/Llama-2-7b-chat-hf",
-    "tiiuae/falcon-7b-instruct",
-    # optional: "google/flan-t5-xl"
+    #"HuggingFaceH4/zephyr-7b-beta",  # still large but faster
+    #"tiiuae/falcon-7b-instruct",  # also popular
+    "gpt2"  # lightweight, just for testing
 ]
 OUTPUT_DIR = Path("hf_eval_results")
 OUTPUT_DIR.mkdir(exist_ok=True)
@@ -45,18 +37,42 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print("Using device:", device)
 
 def load_model_and_tokenizer(model_id: str):
-    """Load appropriate model/tokenizer for a model_id.
-       Handles seq2seq vs causal models heuristically for well-known families.
-    """
+    """Robust load: fallback tokenizer, handle CPU vs GPU and missing accelerate."""
     print(f"\nLoading {model_id} ...")
-    # Some models (flan-t5) are seq2seq, others are causal
     seq2seq_prefixes = ["google/flan-t5", "t5-"]
     is_seq2seq = any(model_id.startswith(p) for p in seq2seq_prefixes)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True)
-    if is_seq2seq:
-        model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto", torch_dtype=torch.bfloat16)
+
+    # try fast tokenizer first, then fallback to slow
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=True, local_files_only=False)
+    except Exception as e:
+        print(f"Tokenizer fast load failed ({e}), retrying with use_fast=False...")
+        tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=False, local_files_only=False)
+
+    # decide load kwargs based on device & accelerate availability
+    try:
+        import accelerate  # type: ignore
+        have_accelerate = True
+    except Exception:
+        have_accelerate = False
+
+    if device == "cuda" and have_accelerate:
+        # GPU + accelerate: use device_map auto and mixed dtype for perf
+        dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+        map_args = {"device_map": "auto", "torch_dtype": dtype, "local_files_only": False}
     else:
-        model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", torch_dtype=torch.bfloat16, trust_remote_code=True)
+        # CPU or no accelerate: avoid device_map and use float32
+        map_args = {"torch_dtype": torch.float32, "local_files_only": False}
+
+    if is_seq2seq:
+        model = AutoModelForSeq2SeqLM.from_pretrained(model_id, **map_args)
+    else:
+        # trust_remote_code for some repos; keep it only if needed
+        model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True, **map_args)
+
+    # ensure model on correct device when not using device_map
+    if device == "cpu":
+        model.to("cpu")
     return tokenizer, model, is_seq2seq
 
 def generate_response(model, tokenizer, prompt: str, is_seq2seq: bool):
@@ -98,7 +114,8 @@ def evaluate_models(models: List[str], queries: List[Dict]):
                 "response": resp_text,
                 "latency_secs": latency
             }
-            print(f"Model {model_id} | {q['lang']} | latency {latency:.3f}s")
+            latency_str = f"{latency:.3f}s" if latency is not None else "None"
+            print(f"Model {model_id} | {q['lang']} | latency {latency_str}")
             model_res["runs"].append(run)
         results.append(model_res)
         # optionally free memory
@@ -113,3 +130,6 @@ def evaluate_models(models: List[str], queries: List[Dict]):
 
 if __name__ == "__main__":
     results = evaluate_models(MODEL_LIST, TEST_QUERIES)
+
+# local import to avoid importing torchvision at module import time
+

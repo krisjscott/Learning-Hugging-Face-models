@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "model": "gpt2",
+    "runs": [
+      {
+        "prompt": "User: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?",
+        "lang": "en",
+        "type": "product_info",
+        "response": "User: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at product SKU 12345 (Bluetooth headphones). What is the battery life, and does it support aptX?\n\nUser: I'm looking at",
+        "latency_secs": 18.588522600010037
+      },
+      {
+        "prompt": "Usuario: Quiero devolver unos auriculares que compré hace 25 días. ¿Cuál es su política de devoluciones y cómo inicio el proceso?",
+        "lang": "es",
+        "type": "return",
+        "response": "Usuario: Quiero devolver unos auriculares que compré hace 25 días. ¿Cuál es su política de devoluciones y cómo inicio el proceso?\n\nMáximo: I am not sure. I am not sure if I am going to be able to do this. I am not sure if I am going to be able to do this.\n\nQ: What is your opinion on the current state of the game?\n\nMáximo: I am not sure. I am not sure if I am going to be able to do this. I am not sure if I am going to be able to do this.\n\nQ: What is your opinion on the current state of the game?\n\nMáximo: I am not sure. I am not sure if I am going to be able to do this. I am not sure if I am going to be able to do this.\n\nQ: What is your opinion on the current state of the game?\n\nMáximo: I am not sure. I am not sure if I am going to be able to do this. I am not sure if I am going to be able to do this.\n\nQ: What is your opinion on the current state of the game?\n\nMáximo: I am not sure. I am not sure if I am going to be able to",
+        "latency_secs": 18.609099799999967
+      },
+      {
+        "prompt": "Utilisateur: Mon chargeur ne fonctionne pas avec le modèle Z5. L'appareil ne s'allume pas. Que puis-je vérifier?",
+        "lang": "fr",
+        "type": "troubleshoot",
+        "response": "Utilisateur: Mon chargeur ne fonctionne pas avec le modèle Z5. L'appareil ne s'allume pas. Que puis-je vérifier?\n\n[The following is a transcript of the conversation between the two men.]\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I'm sorry.\n\nMon chargeur: I'm sorry, I'm sorry.\n\nZ5: I'm sorry, I",
+        "latency_secs": 18.31873660000565
+      },
+      {
+        "prompt": "Benutzer: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (battery 36h, open-back). Bitte gib mir eine Empfehlung für häufiges Reisen und Begründung.",
+        "lang": "de",
+        "type": "compare",
+        "response": "Benutzer: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (battery 36h, open-back). Bitte gib mir eine Empfehlung für häufiges Reisen und Begründung.\n\nBitte: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (battery 36h, open-back). Bitte gib mir eine Empfehlung für häufiges Reisen und Begründung.\n\nBitte: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (battery 36h, open-back). Bitte gib mir eine Empfehlung für häufiges Reisen und Begründung.\n\nBitte: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (battery 36h, open-back). Bitte gib mir eine Empfehlung für häufiges Reisen und Begründung.\n\nBitte: Ich möchte zwei Headset-Modelle vergleichen: A (battery 24h, noise-cancel) und B (",
+        "latency_secs": 18.602365700004157
+      },
+      {
+        "prompt": "ユーザー: 商品が届きましたが箱が破損しています。交換は可能ですか？どのように写真を送れば良いですか？",
+        "lang": "jp",
+        "type": "multilingual",
+        "response": "ユーザー: 商品が届きましたが箱が破損しています。交換は可能ですか？どのように写真を送れば良いですか？どのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を送れば良いですか。\n\nそのように写真を�",
+        "latency_secs": 26.660082500005956
+      }
+    ]
+  }
+]
