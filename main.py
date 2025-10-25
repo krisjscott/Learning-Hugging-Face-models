@@ -8,9 +8,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2Se
 
 MODEL_LIST = [
     # Change these to the models you have license/access to
-    #"HuggingFaceH4/zephyr-7b-beta",  # still large but faster
+    "HuggingFaceH4/zephyr-7b-beta",  # still large but faster
     #"tiiuae/falcon-7b-instruct",  # also popular
-    "gpt2"  # lightweight, just for testing
+    #"gpt2"  # lightweight, just for testing
+    #"google/flan-t5-base"
+
 ]
 OUTPUT_DIR = Path("hf_eval_results")
 OUTPUT_DIR.mkdir(exist_ok=True)
