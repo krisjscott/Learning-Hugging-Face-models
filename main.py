@@ -8,10 +8,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2Se
 
 MODEL_LIST = [
     # Change these to the models you have license/access to
-    "HuggingFaceH4/zephyr-7b-beta",  # still large but faster
+    #"HuggingFaceH4/zephyr-7b-beta",  # still large but faster
     #"tiiuae/falcon-7b-instruct",  # also popular
-    #"gpt2"  # lightweight, just for testing
+    "gpt2"  # lightweight, just for testing
     #"google/flan-t5-base"
+    #"HuggingFaceH4/zephyr-1.3b-beta"
 
 ]
 OUTPUT_DIR = Path("hf_eval_results")
@@ -63,8 +64,8 @@ def load_model_and_tokenizer(model_id: str):
         dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
         map_args = {"device_map": "auto", "torch_dtype": dtype, "local_files_only": False}
     else:
-        # CPU or no accelerate: avoid device_map and use float32
-        map_args = {"torch_dtype": torch.float32, "local_files_only": False}
+       # CPU load in lower precision to save memory
+        map_args = {"torch_dtype": torch.float16, "low_cpu_mem_usage": True, "local_files_only": False}
 
     if is_seq2seq:
         model = AutoModelForSeq2SeqLM.from_pretrained(model_id, **map_args)
