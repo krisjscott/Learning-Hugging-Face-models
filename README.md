@@ -1,8 +1,3 @@
-Sure — here’s the full **README.md** in proper Markdown format, ready to copy and paste directly into your GitHub repository:
-
----
-
-````markdown
 # Learning-Hugging-Face-models
 
 A hands-on collection of experiments and code samples for working with **Hugging Face models** — built by **Krish J. Scott**.
