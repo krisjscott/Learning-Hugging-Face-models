@@ -1,6 +1,6 @@
 # Learning-Hugging-Face-models
 
-A hands-on collection of experiments and code samples for working with **Hugging Face models** — built by **Krish J. Scott**.
+A hands-on collection of experiments and code samples for working with **Hugging Face models** — built by **Krish Kumar**.
 
 ---
 
